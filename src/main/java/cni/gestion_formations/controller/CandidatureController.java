@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import static cni.gestion_formations.utils.Constants.CANDIDATURE_ENDPOINT;
-
 @RestController
 @RequestMapping(CANDIDATURE_ENDPOINT)
 @RequiredArgsConstructor
@@ -20,9 +19,11 @@ public class CandidatureController {
     private final CandidatureService candidatureService ;
 
     @PostMapping("/sendCandidature")
-    public ResponseEntity<Boolean> sendCandidature( @RequestParam(name = "file") MultipartFile file ,Authentication authentication)
-    {
-        return candidatureService.sendCandidature( file ,authentication  ) ;
+    public ResponseEntity<Boolean> sendCandidature(
+            @RequestParam(name = "formationId") Long formationId,
+            @RequestParam(name = "file") MultipartFile cv,
+            Authentication authentication) {
+        return candidatureService.sendCandidature(formationId, cv, authentication);
     }
 
 }
